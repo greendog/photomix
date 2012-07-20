@@ -8,6 +8,7 @@ gem 'mime-types', :require => 'mime/types'
 gem 'carrierwave', '0.6.2'
 gem 'dynamic_form'
 gem 'princely'
+gem 'russian', :git => 'git://github.com/yaroslav/russian.git'
 
 # -- Heroku
 #gem 'heroku'

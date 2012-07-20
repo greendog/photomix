@@ -14,6 +14,8 @@ module Balder
     config.autoload_paths += %W(#{config.root}/lib #{config.root}/app/middleware/)
 
     config.encoding = "utf-8"
+    config.i18n.default_locale = :ru
+    config.time_zone = 'Moscow'
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password, :password_confirmation]

@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/yaroslav/russian.git
+  revision: e2dde13672bcee176f8b0be364a55ac256913231
+  specs:
+    russian (0.6.0)
+      i18n (>= 0.5.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -123,4 +130,5 @@ DEPENDENCIES
   mini_magick
   princely
   rails (= 3.2.6)
+  russian!
   sqlite3-ruby
