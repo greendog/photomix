@@ -1,11 +1,13 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.3'
+gem 'rails', '3.2.6'
 
 gem 'authlogic'
 
 gem 'mime-types', :require => 'mime/types'
-gem 'carrierwave', '0.6.1'
+gem 'carrierwave', '0.6.2'
+gem 'dynamic_form'
+gem 'princely'
 
 # -- Heroku
 #gem 'heroku'
