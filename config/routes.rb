@@ -1,8 +1,17 @@
-Balder::Application.routes.draw do
+Photomix::Application.routes.draw do
+  mount DeviseOmniauthEngine::Engine => "/", :as => "devise_omniauth"
+
+  devise_scope :user do
+    get '/login' => 'devise/sessions#new', :as => :login
+    get '/signup' => 'devise/registrations#new', :as => :signup
+    get '/logout' => 'devise/sessions#destroy', :as => :logout
+    resource :account, :controller => :users, :as => :user_root
+  end
+
+  devise_for :users, :controllers => {:omniauth_callbacks => "users/omniauth_callbacks"},
+             :path_names => {:sign_out => 'logout'}
+
   resource :account, :controller => :users
-  match "login", :to => "user_sessions#new", :as => :login
-  match "authenticate", :to => "user_sessions#create", :as => :authenticate
-  match "logout", :to => "user_sessions#destroy", :as => :logout
 
   resources :photos do
     collection do
@@ -45,14 +54,14 @@ Balder::Application.routes.draw do
       end
     end
   end
-  
+
   resources :tags, :shallow => true do
     resources :photos
     resources :albums
   end
-  
-  resources :users, :controller => "admin/users"
-  
+
+  match '/locale' => "locale#set"
+
   root :to => "collections#index"
 
 end

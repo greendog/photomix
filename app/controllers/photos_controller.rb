@@ -1,17 +1,17 @@
 class PhotosController < ApplicationController
   before_filter :check_public_access
-  before_filter :require_role_admin, :only => [:untouched, :upload, :new, :create, :edit, :update, :destroy, :scan]
+  skip_before_filter :authenticate_user!, :only => [:index, :show]
 
   def index
     if params[:tag_id] && params[:album_id]
       @tag = Tag.find_by_title!( params[:tag_id] )
-      @photos = @tag.photos.find(:all, :conditions => ['photos.album_id = :album', {:album => Album.find(params[:album_id] ) } ], :order => "photos.id ASC")
+      @photos = @tag.photos.where(:conditions => ['photos.album_id = :album', {:album => Album.find(params[:album_id] ) } ]).order("photos.id ASC")
     elsif params[:tag_id]
       @tag = Tag.find_by_title!( params[:tag_id] )
-      @photos = @tag.photos.find(:all, :order => "photos.id ASC")
+      @photos = @tag.photos.order("photos.id ASC")
     elsif params[:album_id]
       @album = Album.find( params[:album_id])
-      @photos = @album.photos.find(:all, :order => "photos.id ASC")
+      @photos = @album.photos.order("photos.id ASC")
     elsif params[:q]
       #search = params[:q]
       #search = search.split("AND").map{|q|q.strip}
@@ -25,7 +25,7 @@ class PhotosController < ApplicationController
         end
       }
     else
-      @photos = Photo.find(:all, :order => "photos.id ASC")
+      @photos = Photo.order("photos.id ASC")
     end
     respond_to do |format|
       format.html
@@ -77,10 +77,10 @@ class PhotosController < ApplicationController
 
   def create
     @photo = Photo.new(params[:photo])
-    @photo.file = params[:file]
+    @photo.attachment = params[:file]
     respond_to do |format|
         if @photo.save
-          format.html { render :text => "FILEID:" + @photo.file.album.url }
+          format.html { render :text => "FILEID:" + @photo.attachment.album.url }
           format.xml  { render :nothing => true }
         else
           format.html { render :text => "ERRORS:" + @photo.errors.full_messages.join(" "), :status => 500 }
@@ -91,7 +91,7 @@ class PhotosController < ApplicationController
   
   def edit
     @photo = Photo.find( params[:id])
-    @tags = Tag.find(:all).map { |tag| tag.title }.join('\',\'')
+    @tags = Tag.all.map { |tag| tag.title }.join('\',\'')
   end
   
   def edit_multiple

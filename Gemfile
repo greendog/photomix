@@ -2,29 +2,37 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.2.6'
 
-gem 'authlogic'
-
 gem 'mime-types', :require => 'mime/types'
 gem 'carrierwave', '0.6.2'
 gem 'dynamic_form'
 gem 'princely'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
+gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
+gem 'configatron', :git => 'git://github.com/markbates/configatron.git'
+gem 'plupload-rails', :git => 'git://github.com/bryanmig/plupload-rails.git'
+gem 'sequel', :git => 'git://github.com/jeremyevans/sequel.git'
 gem 'russian', :git => 'git://github.com/yaroslav/russian.git'
 
-# -- Heroku
-#gem 'heroku'
-#gem 'pg'
+gem "devise_omniauth_engine", :git=>"git://github.com/greendog/devise_omniauth_engine.git"
+gem 'omniauth-twitter'
+gem 'omniauth-facebook'
+gem 'omniauth-openid'
+gem 'omniauth-google-apps'
+gem 'omniauth-vkontakte', :git => 'git://github.com/mamantoha/omniauth-vkontakte.git'
+gem 'cancan'
 
-# -- Database
-# SQLite:
-group :development do
-  gem 'sqlite3-ruby'
+group :assets do
+  gem 'sass-rails'
+  gem 'coffee-rails'
+  gem 'uglifier'
 end
-# MySQL:
-#gem 'mysql2'
-# PostgreSQL:
-#gem 'pg'
+
+group :development do
+  gem 'sqlite3'
+  gem 'ffaker'
+  gem 'machinist'
+end
 
 # -- Cloud storage
 # AWS S3 support. Can be disabled if using local file system instead of cloud storage.

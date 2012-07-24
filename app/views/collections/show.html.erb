@@ -14,7 +14,7 @@
 <% end %>
 
 <%= content_for :action_links do %>
-<% if has_role?("admin") %>
+<% if current_user and current_user.has_role?("admin") %>
 <%= link_to "PDF", collection_path(@collection, :format => 'pdf') %> |&nbsp;
 <%= link_to "Edit collection", edit_collection_path(@collection) %> | 
 <%= link_to "New album", new_collection_album_path(@collection) %>

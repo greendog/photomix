@@ -4,4 +4,4 @@
 require File.expand_path('../config/application', __FILE__)
 require 'rake'
 
-Balder::Application.load_tasks
+Photomix::Application.load_tasks

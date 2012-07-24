@@ -6,7 +6,7 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env) if defined?(Bundler)
 
-module Balder
+module Photomix
   class Application < Rails::Application
     
     # Custom directories with classes and modules you want to be autoloadable.
@@ -16,6 +16,9 @@ module Balder
     config.encoding = "utf-8"
     config.i18n.default_locale = :ru
     config.time_zone = 'Moscow'
+    config.active_support.escape_html_entities_in_json = true
+    config.assets.enabled = true
+    config.assets.version = '1.0'
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password, :password_confirmation]

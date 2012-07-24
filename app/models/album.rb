@@ -1,4 +1,6 @@
 class Album < ActiveRecord::Base
+  extend Ext::GroupFor
+
   has_many :photos, :dependent => :destroy
   has_many :collection_albums
   has_many :collections, :through => :collection_albums
@@ -12,7 +14,7 @@ class Album < ActiveRecord::Base
 
   attr_accessor :tags
   #attr_protected :path
-  
+
   scope :untouched, where("albums.id IN ( SELECT DISTINCT photos.album_id FROM photos WHERE photos.description IS NULL AND photos.id NOT IN ( SELECT photo_id FROM photo_tags) )").order('title')
   scope :unused, where("albums.id NOT IN (SELECT album_id FROM collection_albums)")
   scope :used, where("albums.id IN (SELECT album_id FROM collection_albums)")

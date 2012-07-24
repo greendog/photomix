@@ -1,10 +1,10 @@
 class AlbumsController < ApplicationController
   before_filter :check_public_access
-  before_filter :require_role_admin, :only => [:untouched, :new, :create, :edit, :update, :destroy]
+  skip_before_filter :authenticate_user!, :only => [:index, :show]
   
   def index
     if params[:tag_id]
-      @albums = Album.find(:all, :conditions => [ "id IN ( SELECT DISTINCT photos.album_id FROM photos WHERE photos.id IN ( SELECT photo_id FROM photo_tags WHERE photo_tags.tag_id = :q) )", { :q => Tag.find( params[:tag_id] ).id } ], :order => 'title')
+      @albums = Album.where(:conditions => [ "id IN ( SELECT DISTINCT photos.album_id FROM photos WHERE photos.id IN ( SELECT photo_id FROM photo_tags WHERE photo_tags.tag_id = :q) )", { :q => Tag.find( params[:tag_id] ).id } ]).order('title')
     elsif params[:q]
       #search = params[:q]
       #search = search.split("AND").map{|q|q.strip}
@@ -20,7 +20,7 @@ class AlbumsController < ApplicationController
         end
       }
     else
-      @albums = Album.find(:all, :order => 'title')
+      @albums = Album.order('albums.title')
     end
     respond_to do |format|
       format.html

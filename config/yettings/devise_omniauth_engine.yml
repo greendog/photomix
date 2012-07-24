@@ -1,0 +1,15 @@
+development:
+  twitter_key: Uaqi5HXJlxVPKrQD0Rytw
+  twitter_secret: RCxKqgsjqNxmjd2YDLEjOn6emhMOjwy3yWPvLO06i0
+  facebook_key: 237456219689843
+  facebook_secret: ffec0c5a132bb83473084c31a6bd27ed
+  vkontakte_key:   2951707
+  vkontakte_secret: CWOzbZrfFagKmtdMb1ZC
+
+production:
+  twitter_key: LY7PGBLsvSF0Z4rK30a9cA
+  twitter_secret: PvyYVDQRysLGy8Vvvj6RcFewdLmpdmnvUzKm6IqrBY
+  facebook_key: 310467435688958
+  facebook_secret: a95127a3842bc45a82199e3eceb9b837
+  vkontakte_key:   2936461
+  vkontakte_secret: xx2ZqujGSztHH09NYKbU

@@ -1,17 +1,16 @@
 class Photo < ActiveRecord::Base
-  # TODO: path not used? it should be removed from the DB
+  extend Ext::GroupFor
 
   belongs_to :album
   has_many :photo_tags, :dependent => :destroy
   has_many :tags, :through => :photo_tags
   
-  mount_uploader :file, FileUploader
+  mount_uploader :attachment, FileUploader
   
-  validates :title, :presence => true
-  
-  before_validation :set_title
+
   before_create :exif_read
-  #before_update :exif_write
+  before_update :exif_write
+  after_create :set_title
 
   attr_accessor :tag_list
   
@@ -39,7 +38,7 @@ class Photo < ActiveRecord::Base
   end
 
   def tag_list
-    return self.tags.find(:all, :order => 'title').map{ |t| t.title }.sort.join(" ")
+    return self.tags.order('title').map{ |t| t.title }.sort.join(" ")
   end
 
   def tag_list=(tags)
@@ -58,11 +57,13 @@ class Photo < ActiveRecord::Base
   private
 
   def set_title
-    self.title = self.file.file.basename.titleize unless self.title
+    a=self.attachment.file.basename
+    update_attribute(:title, a.titleize)
+    self.title = self.attachment.file.basename.titleize unless self.title
   end
 
   def exif_read
-    photo = MiniExiftool.new(self.file.file.file)
+    photo = MiniExiftool.new(self.attachment.file.file)
     self.longitude = photo.GPSLongitude if self.longitude.nil?
     self.latitude = photo.GPSLatitude if self.latitude.nil?
     self.title = photo.DocumentName if self.title.nil?
@@ -72,7 +73,7 @@ class Photo < ActiveRecord::Base
   
   def exif_write
     # should only write if tags are changed as images can be large and thus ExifTool will take a while to write to the file
-    photo = MiniExiftool.new(self.file.file.file)
+    photo = MiniExiftool.new(self.attachment.file.file)
     photo.GPSLongitude = self.longitude
     photo.GPSLatitude = self.latitude
     photo.DocumentName = self.title

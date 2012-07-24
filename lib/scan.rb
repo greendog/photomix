@@ -46,7 +46,7 @@ module ScanFiles
   end
   
   def self.RecreateThumbnails
-    Photo.find(:all).each {|photo|
+    Photo.all.each {|photo|
         photo.file.recreate_versions!
       }
   end

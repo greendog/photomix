@@ -1,13 +1,7 @@
 <%= content_for :javascript do %>
-    <style type="text/css">@import url(/javascripts/plupload/js/jquery.plupload.queue/css/jquery.plupload.queue.css);</style>
-    <%= javascript_include_tag "plupload/js/plupload.full.js" -%>
-    <%= javascript_include_tag "plupload/js/jquery.plupload.queue/jquery.plupload.queue.js" -%>
-
     <script type="text/javascript">
         $(document).ready(function () {
-
             $("#uploader").pluploadQueue({
-                // General settings
                 runtimes:'flash,html5,browserplus,silverlight,gears',
                 url:'<%= photos_path %>',
                 max_file_size:'10mb',
@@ -27,10 +21,10 @@
                 ],
 
                 // Flash settings
-                flash_swf_url:'/javascripts/plupload/js/plupload.flash.swf',
+                flash_swf_url:'/assets/plupload.flash.swf',
 
                 // Silverlight settings
-                silverlight_xap_url:'/javascripts/plupload/js/plupload.silverlight.xap',
+                silverlight_xap_url:'/assets/plupload.silverlight.xap',
 
                 // Post init events, bound after the internal events
                 init:{
@@ -76,6 +70,7 @@
     <p>You browser doesn't have Flash, Silverlight, Gears, BrowserPlus or HTML5 support.</p>
   </div>
   <br>
+
   <div id="thumbs"></div>
 </form>
 

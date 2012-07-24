@@ -1,7 +1,22 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
-#   Mayor.create(:name => 'Daley', :city => cities.first)
+#coding: utf-8
+require_relative "../test/blueprints"
+require 'fileutils'
+
+@user_role = Role.make! name: 'user'
+
+FileUtils.rm_rf "#{Rails.root}/public/uploads"
+FileUtils.mkdir_p "#{Rails.root}/tmp/attachments"
+
+user = User.make! email: 'test@example.com', password: 'password', password_confirmation: 'password',
+                  first_name: 'Username', second_name: 'Secondname', surname: 'Surname', confirmed_at: Time.now,
+                  confirmation_sent_at: (Time.now+3)
+
+user.roles << Role.make!(name: 'admin')
+
+20.times.map { User.make! }
+20.times.map { Collection.make! }
+20.times.map { Album.make! }
+20.times.map { Photo.make! }
+10.times.map { CollectionAlbum.make! }
+
+FileUtils.rm_rf "#{Rails.root}/tmp/attachments"

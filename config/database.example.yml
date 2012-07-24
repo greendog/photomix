@@ -6,19 +6,19 @@ development:
 development_mysql_osx:
     adapter: mysql2
     encoding: utf8
-    username: balder
+    username: photomix
     password: changeme
-    database: balder_development
+    database: photomix_development
     socket: /tmp/mysql.sock
 production:
     adapter: mysql2
     encoding: utf8
-    username: balder
+    username: photomix
     password: changeme
-    database: balder_production
+    database: photomix_production
     socket: /var/run/mysqld/mysqld.sock
 test: &TEST
     adapter: postgresql
     database: gallery_test
-    username: balder
+    username: photomix
     password: changeme

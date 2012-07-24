@@ -2,6 +2,9 @@
 
 class FileUploader < CarrierWave::Uploader::Base
 
+  @@generate_file_name = ''
+  @@original_filename  = ''
+
   # Include RMagick or ImageScience support
   #     include CarrierWave::RMagick
   #     include CarrierWave::ImageScience
@@ -21,7 +24,15 @@ class FileUploader < CarrierWave::Uploader::Base
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
     #{}"uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
-    ENV['STORAGE_PATH'] + "/files/#{model.album.path}"
+    ENV['STORAGE_PATH'] + "/files/#{model.album.path}/#{model.id}"
+  end
+
+  def filename
+    unless @@original_filename == original_filename
+      @@original_filename = original_filename
+      @@generate_file_name = "#{::SecureRandom.hex(8)}#{File.extname(original_filename).downcase}"  if original_filename
+    end
+    @@generate_file_name
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded
@@ -38,31 +49,34 @@ class FileUploader < CarrierWave::Uploader::Base
 
   # Create different versions of your uploaded files
   version :collection do
-    process :resize_to_fill => [200, 200]
+    process :resize_to_fill => [260, 180]
 
     def store_dir
-      ENV['STORAGE_PATH'] + "/thumbs/#{model.album.path}"
+      ENV['STORAGE_PATH'] + "/thumbs/#{model.album.path}/#{model.id}"
     end
   end
+
   version :album do
     process :resize_to_fill => [100, 100]
 
     def store_dir
-      ENV['STORAGE_PATH'] + "/thumbs/#{model.album.path}"
+      ENV['STORAGE_PATH'] + "/thumbs/#{model.album.path}/#{model.id}"
     end
   end
+
   version :preview do
     process :resize_to_fit => [210, 210]
 
     def store_dir
-      ENV['STORAGE_PATH'] + "/thumbs/#{model.album.path}"
+      ENV['STORAGE_PATH'] + "/thumbs/#{model.album.path}/#{model.id}"
     end
   end
+
   version :single do
     process :resize_to_limit => [950, 950]
 
     def store_dir
-      ENV['STORAGE_PATH'] + "/thumbs/#{model.album.path}"
+      ENV['STORAGE_PATH'] + "/thumbs/#{model.album.path}/#{model.id}"
     end
   end
 
@@ -71,10 +85,4 @@ class FileUploader < CarrierWave::Uploader::Base
   def extension_white_list
     %w(jpg jpeg gif png bmp tiff)
   end
-
-  # Override the filename of the uploaded files
-  #     def filename
-  #       "something.jpg" if original_filename
-  #     end
-
 end

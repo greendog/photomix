@@ -1,26 +1,53 @@
 class CreateUsers < ActiveRecord::Migration
-  def self.up
-    create_table :users do |t|
-      t.string    :email,               :null => false                # optional, you can use login instead, or both
-      t.string    :crypted_password,    :null => false                # optional, see below
-      t.string    :password_salt,       :null => false                # optional, but highly recommended
-      t.string    :persistence_token,   :null => false                # required
-      t.string    :single_access_token, :null => false                # optional, see Authlogic::Session::Params
-      t.string    :perishable_token,    :null => false                # optional, see Authlogic::Session::Perishability
+  def change
+    create_table(:users) do |t|
+      ## Database authenticatable
+      t.string :email, :null => false, :default => ""
+      t.string :encrypted_password, :null => false, :default => ""
 
-      # Magic columns, just like ActiveRecord's created_at and updated_at. These are automatically maintained by Authlogic if they are present.
-      t.integer   :login_count,         :null => false, :default => 0 # optional, see Authlogic::Session::MagicColumns
-      t.integer   :failed_login_count,  :null => false, :default => 0 # optional, see Authlogic::Session::MagicColumns
-      t.datetime  :last_request_at                                    # optional, see Authlogic::Session::MagicColumns
-      t.datetime  :current_login_at                                   # optional, see Authlogic::Session::MagicColumns
-      t.datetime  :last_login_at                                      # optional, see Authlogic::Session::MagicColumns
-      t.string    :current_login_ip                                   # optional, see Authlogic::Session::MagicColumns
-      t.string    :last_login_ip                                      # optional, see Authlogic::Session::MagicColumns
+      ## Recoverable
+      t.string :reset_password_token
+      t.datetime :reset_password_sent_at
+
+      ## Rememberable
+      t.datetime :remember_created_at
+
+      ## Trackable
+      t.integer :sign_in_count, :default => 0
+      t.datetime :current_sign_in_at
+      t.datetime :last_sign_in_at
+      t.string :current_sign_in_ip
+      t.string :last_sign_in_ip
+
+      ## Encryptable
+      t.string :password_salt
+
+      # Confirmable
+      t.string :confirmation_token
+      t.datetime :confirmed_at
+      t.datetime :confirmation_sent_at
+      t.string :unconfirmed_email # Only if using reconfirmable
+
+      # Lockable
+      t.integer :failed_attempts, :default => 0 # Only if lock strategy is :failed_attempts
+      t.string :unlock_token # Only if unlock strategy is :email or :both
+      t.datetime :locked_at
+
+      # Token authenticatable
+      t.string :authentication_token
+
+      t.string :first_name
+      t.string :second_name
+      t.string :surname
+      t.string :userpic
+
       t.timestamps
     end
-  end
-  
-  def self.down
-    drop_table :users
+
+    add_index User.table_name, :email, :unique => true
+    add_index User.table_name, :reset_password_token, :unique => true
+    add_index User.table_name, :confirmation_token, :unique => true
+    add_index User.table_name, :unlock_token, :unique => true
+    add_index User.table_name, :authentication_token, :unique => true
   end
 end

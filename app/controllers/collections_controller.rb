@@ -1,9 +1,10 @@
 class CollectionsController < ApplicationController
   before_filter :check_public_access
-  before_filter :require_role_admin, :only => [:new, :create, :edit, :update, :destroy]
+  skip_before_filter :authenticate_user!, :only => [:index, :show]
+
 
   def index
-    @collections = Collection.find(:all, :order => 'title')
+    @collections = Collection.joins(:albums => :photos).group_for.order('collections.title')
     respond_to do |format|
       format.html
       format.json  { render :json => @collections }
@@ -13,7 +14,7 @@ class CollectionsController < ApplicationController
   
   def show
     @collection = Collection.find( params[:id] )
-    @albums = @collection.albums.find(:all, :order => 'title')
+    @albums = @collection.albums.order('title')
     respond_to do |format|
       format.html
       format.json  { render :json => @collection }

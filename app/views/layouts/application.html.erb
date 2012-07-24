@@ -1,13 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title><%= ENV['TITLE'] || "Photos" %></title>
-	<meta name="viewport" content="width=device-width">
-	<meta name="viewport" content="initial-scale=1.0">
-	<%= yield :head %>
-	<%= stylesheet_link_tag 'application' %>
-	<%= csrf_meta_tag %>
+	<%= render :partial => 'shared/head' %>
 </head>
 <body>
 <div id="container">
@@ -43,7 +37,6 @@
 </div>
 </div>
 
-<%= javascript_include_tag 'jquery-1.4.2.js', 'rails', 'balder' %>
-<%= yield :javascript %>
+
 </body>
 </html>
