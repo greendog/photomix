@@ -20,7 +20,6 @@ User.blueprint {
   surname { Faker::NameRU.last_name(sex) }
   confirmed_at { Time.now + rand(1..4) }
   confirmation_sent_at { Time.now + rand(5..9) }
-  # TODO migrate from paperclip to carrier_wave
   userpic {
     file_name = ::SecureRandom.hex(8)
     file = open("http://lorempixel.com/800/500/abstract/")
@@ -39,11 +38,15 @@ Album.blueprint {
   title { Faker::Lorem.sentence(rand(3)) }
   description { Faker::Lorem.sentence }
   path { "my_album_#{sn}" }
+  rating_average { rand(1..5) }
+  public { true }
 }
 
 Collection.blueprint {
   title { Faker::Lorem.sentence(rand(3)) }
   description { Faker::Lorem.sentence }
+  rating_average { rand(1..5) }
+  public { true }
 }
 
 CollectionAlbum.blueprint {
@@ -55,9 +58,11 @@ Photo.blueprint {
   title { Faker::Lorem.sentence(rand(3)) }
   description { Faker::Lorem.sentence }
   album { Album.find(rand(1..20)) }
+  rating_average { rand(1..5) }
+  public { true }
   attachment {
     file_name = ::SecureRandom.hex(8)
-    file = open("http://lorempixel.com/800/500/abstract/")
+    file = open("http://lorempixel.com/1300/1000/people/")
     if file.kind_of? Tempfile
       name = File.basename(file.path)
       FileUtils.move(file.path, "#{Rails.root}/tmp/attachments/#{name}.jpeg")
@@ -68,4 +73,23 @@ Photo.blueprint {
     file
   }
 }
+
+Rate.blueprint(:collections) {
+  rateable { Collection.find(rand(1..20)) }
+  rater { User.find(rand(1..20)) }
+  stars { rand(1..5) }
+}
+
+Rate.blueprint(:albums) {
+  rateable { Album.find(rand(1..20)) }
+  rater { User.find(rand(1..20)) }
+  stars { rand(1..5) }
+}
+
+Rate.blueprint(:photos) {
+  rateable { Photo.find(rand(1..20)) }
+  rater { User.find(rand(1..20)) }
+  stars { rand(1..5) }
+}
+
 

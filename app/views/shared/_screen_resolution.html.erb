@@ -1,0 +1,8 @@
+<a href="javascript:alert('Your screen resolution is '+screen.width+'x'+screen.height);">Click for your screen resolution</a>
+<input type="hidden" id="resolution_screen" name="resolution_screen">
+
+<%= content_for :action_links do %>
+    <% if current_user and current_user.has_role?("admin") %>
+        <%= link_to "New collection", new_collection_path %>
+    <% end %>
+<% end %>

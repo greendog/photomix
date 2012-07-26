@@ -11,13 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100412220801) do
+ActiveRecord::Schema.define(:version => 20120724213209) do
 
   create_table "albums", :force => true do |t|
-    t.string   "title",       :null => false
+    t.string   "title",                                                         :null => false
     t.text     "description"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.decimal  "rating_average", :precision => 6, :scale => 2, :default => 0.0
+    t.string   "url"
+    t.boolean  "public"
+    t.datetime "created_at",                                                    :null => false
+    t.datetime "updated_at",                                                    :null => false
     t.text     "path"
     t.string   "address"
     t.float    "longitude"
@@ -38,10 +41,13 @@ ActiveRecord::Schema.define(:version => 20100412220801) do
   add_index "collection_albums", ["collection_id"], :name => "index_collection_albums_on_collection_id"
 
   create_table "collections", :force => true do |t|
-    t.string   "title",       :null => false
+    t.string   "title",                                                           :null => false
     t.string   "description"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.decimal  "rating_average", :precision => 6, :scale => 2, :default => 0.0
+    t.string   "url"
+    t.boolean  "public",                                       :default => false
+    t.datetime "created_at",                                                      :null => false
+    t.datetime "updated_at",                                                      :null => false
   end
 
   add_index "collections", ["id"], :name => "index_collections_on_id", :unique => true
@@ -60,8 +66,11 @@ ActiveRecord::Schema.define(:version => 20100412220801) do
     t.string   "title"
     t.text     "description"
     t.integer  "album_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.decimal  "rating_average", :precision => 6, :scale => 2, :default => 0.0
+    t.string   "url"
+    t.boolean  "public"
+    t.datetime "created_at",                                                    :null => false
+    t.datetime "updated_at",                                                    :null => false
     t.text     "path"
     t.float    "longitude"
     t.float    "latitude"
@@ -70,6 +79,19 @@ ActiveRecord::Schema.define(:version => 20100412220801) do
 
   add_index "photos", ["album_id"], :name => "index_photos_on_album_id"
   add_index "photos", ["id"], :name => "index_photos_on_id", :unique => true
+
+  create_table "rates", :force => true do |t|
+    t.integer  "rater_id"
+    t.integer  "rateable_id"
+    t.string   "rateable_type"
+    t.integer  "stars",         :null => false
+    t.string   "dimension"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  add_index "rates", ["rateable_id", "rateable_type"], :name => "index_rates_on_rateable_id_and_rateable_type"
+  add_index "rates", ["rater_id"], :name => "index_rates_on_rater_id"
 
   create_table "roles", :force => true do |t|
     t.string   "name"

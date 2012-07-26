@@ -6,6 +6,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.easing.1.3
 //= require twitter/bootstrap
 //= require plupload
 //= require jquery.plupload.queue

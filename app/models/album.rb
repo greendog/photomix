@@ -1,6 +1,8 @@
 class Album < ActiveRecord::Base
   extend Ext::GroupFor
 
+  ajaxful_rateable :stars => 5, :cache_column => :rating_average
+
   has_many :photos, :dependent => :destroy
   has_many :collection_albums
   has_many :collections, :through => :collection_albums

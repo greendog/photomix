@@ -14,6 +14,10 @@ Photomix::Application.routes.draw do
   resource :account, :controller => :users
 
   resources :photos do
+    member do
+      post :rate
+    end
+
     collection do
       get :untouched
       post :edit_multiple
@@ -22,10 +26,16 @@ Photomix::Application.routes.draw do
       get :scan
     end
   end
+
   resources :albums do
+    member do
+      post :rate
+    end
+
     collection do
       get :untouched
     end
+
     resources :tags do
       resources :photos do
         collection do
@@ -35,6 +45,7 @@ Photomix::Application.routes.draw do
         end
       end
     end
+
     resources :photos do
       collection do
         get :untouched
@@ -43,7 +54,12 @@ Photomix::Application.routes.draw do
       end
     end
   end
+
   resources :collections do
+    member do
+      post :rate
+    end
+
     resources :albums do
       resources :photos do
         collection do

@@ -4,3 +4,11 @@
  *= require jquery.plupload.queue
  *= require bootstrap_and_overrides
  */
+
+.ajaxful-rating-wrapper{
+    float: right;
+}
+
+.view-btn{
+    display: inline;
+}

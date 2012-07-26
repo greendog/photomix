@@ -9,6 +9,13 @@ class UserpicUploader < CarrierWave::Uploader::Base
     "#{::SecureRandom.hex(8)}#{File.extname(original_filename).downcase}"  if original_filename
   end
 
+  version :mini do
+    process :resize_to_fit => [50, 50]
+
+    def store_dir
+      "#{ENV['STORAGE_PATH']}/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}/mini"
+    end
+  end
 
   version :small do
     process :resize_to_fit => [100, 100]

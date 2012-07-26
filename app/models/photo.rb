@@ -1,19 +1,21 @@
 class Photo < ActiveRecord::Base
   extend Ext::GroupFor
 
+  ajaxful_rateable :stars => 5, :cache_column => :rating_average
+
   belongs_to :album
   has_many :photo_tags, :dependent => :destroy
   has_many :tags, :through => :photo_tags
   
   mount_uploader :attachment, FileUploader
-  
 
   before_create :exif_read
   before_update :exif_write
   after_create :set_title
 
   attr_accessor :tag_list
-  
+
+  scope :visible, where(:public => true)
   scope :untouched, :conditions => "photos.description IS NULL AND photos.id NOT IN ( SELECT photo_id FROM photo_tags)", :include => :album 
   scope :previous, lambda { |p,a| { :conditions => ["id < :id AND album_Id = :album ", { :id => p, :album => a } ], :limit => 1, :order => "id DESC"} }
   scope :next, lambda { |p,a| { :conditions => ["id > :id AND album_Id = :album ", { :id => p, :album => a } ], :limit => 1, :order => "id ASC"} }

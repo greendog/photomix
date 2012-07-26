@@ -19,4 +19,8 @@ user.roles << Role.make!(name: 'admin')
 20.times.map { Photo.make! }
 10.times.map { CollectionAlbum.make! }
 
+20.times.map{ Rate.make!(:collections) }
+20.times.map{ Rate.make!(:albums) }
+20.times.map{ Rate.make!(:photos) }
+
 FileUtils.rm_rf "#{Rails.root}/tmp/attachments"

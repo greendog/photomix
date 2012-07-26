@@ -1,0 +1,38 @@
+<%= content_for :head do %>
+    <%= stylesheet_link_tag "anythingslider/anythingslider" %>
+    <%= javascript_include_tag "anythingslider/jquery.anythingslider.min" %>
+
+    <script>
+        $(function () {
+            $('#home-slider').anythingSlider({
+//                theme:'metallic',
+                expand:true,
+                //resizeContents: false,
+                autoPlay:true
+            });
+
+
+        });
+    </script>
+
+    <style type="text/css">
+        #home-slider {
+            height: 1000px;
+        }
+
+        .slider-wrapper {
+            width: 100%;
+            height: 1000px;
+            margin: 0 auto;
+            margin-bottom: 20px;
+        }
+    </style>
+<% end %>
+
+<div class="span12 slider-wrapper">
+  <ul id="home-slider">
+    <% @popular_photos.each do |photo| %>
+        <li><%= image_tag photo.attachment.large.url %></li>
+    <% end %>
+  </ul>
+</div>

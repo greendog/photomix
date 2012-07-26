@@ -64,21 +64,37 @@ class FileUploader < CarrierWave::Uploader::Base
     end
   end
 
-  version :preview do
-    process :resize_to_fit => [210, 210]
+  ######################################################################################################################
+  # Note
+  # The default grid system provided in Bootstrap utilizes 12 columns that
+  # render out at widths of 724px, 940px (default without responsive CSS included), and 1170px.
+  # Below 767px viewports, the columns become fluid and stack vertically.
+
+  version :middle do
+    process :resize_to_fit => [724, 500]
 
     def store_dir
       ENV['STORAGE_PATH'] + "/thumbs/#{model.album.path}/#{model.id}"
     end
   end
 
-  version :single do
-    process :resize_to_limit => [950, 950]
+  version :large do
+    process :resize_to_fit => [940, 500]
 
     def store_dir
       ENV['STORAGE_PATH'] + "/thumbs/#{model.album.path}/#{model.id}"
     end
   end
+
+  version :largest do
+    process :resize_to_fit => [1170, 500]
+
+    def store_dir
+      ENV['STORAGE_PATH'] + "/thumbs/#{model.album.path}/#{model.id}"
+    end
+  end
+  ######################################################################################################################
+
 
   # Add a white list of extensions which are allowed to be uploaded,
   # for images you might use something like this:

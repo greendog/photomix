@@ -1,25 +1,31 @@
-<% @collections.in_groups_of(4).compact.each do |group| %>
-    <% unless group.compact.empty? %>
-        <ul class="thumbnails">
-          <% group.compact.each do |collection| %>
-              <% unless collection.albums.empty? %>
-                  <% unless collection.albums.first.photos.empty? %>
-                      <li class="span3">
-                        <div class="thumbnail">
-                          <%= image_tag collection.albums.first.photos.first.attachment.collection.url %>
-                          <div class="caption">
-                            <h5><%= collection.title %></h5>
-                            <p><%= collection.description %></p>
-                            <p><%= link_to 'View', (collection_path(collection) unless collection.albums.empty? || collection.albums.first.photos.empty?), {:class => 'btn btn-primary'} %></p>
-                          </div>
-                        </div>
-                      </li>
-                  <% end %>
-              <% end %>
-          <% end %>
-        </ul>
-    <% end %>
-<% end %>
+<div class="row">
+  <%= render 'shared/home_slider' %>
+</div>
+<div class="clearfix"></div>
+<div class="row">
+ <div class="span12">
+   <% @collections.in_groups_of(4).each do |group| %>
+       <% unless group.empty? %>
+           <ul class="thumbnails">
+             <% group.compact.each_with_index do |collection, index| %>
+                 <li class="span3">
+                   <div class="thumbnail">
+                     <%= image_tag collection.albums.first.photos.first.attachment.collection.url %>
+                     <div class="caption">
+                       <h5><%= collection.title %></h5>
+                       <p><%= collection.description %></p>
+                       <p class="view-btn"><%= link_to 'View', (collection_path(collection) unless collection.albums.empty? || collection.albums.first.photos.empty?), {:class => 'btn btn-primary'} %></p>
+                       <%= ratings_for collection %>
+                     </div>
+                   </div>
+                 </li>
+             <% end %>
+           </ul>
+       <% end %>
+   <% end %>
+ </div>
+</div>
+
 
 
 <%= content_for :action_links do %>

@@ -12,7 +12,7 @@ module Photomix
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/
     config.autoload_paths += %W(#{config.root}/lib #{config.root}/app/middleware/)
-
+    config.active_record.observers = :secret_link_observer
     config.encoding = "utf-8"
     config.i18n.default_locale = :ru
     config.time_zone = 'Moscow'

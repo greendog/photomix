@@ -4,7 +4,9 @@ class CollectionsController < ApplicationController
 
 
   def index
-    @collections = Collection.joins(:albums => :photos).group_for.order('collections.title')
+    @collections = Collection.includes(:albums => :photos).where("photos.id NOT NULL").group_for.order('collections.title')
+    @popular_photos = Photo.visible.order('rating_average asc').limit(10)
+
     respond_to do |format|
       format.html
       format.json  { render :json => @collections }
@@ -58,6 +60,12 @@ class CollectionsController < ApplicationController
     else
       redirect_to @collection
     end
+  end
+
+  def rate
+    @collection = Collection.find(params[:id])
+    @collection.rate(params[:stars], current_user, params[:dimension])
+    render :json => {:id => @collection.wrapper_dom_id(params), :width => 125}
   end
   
 end

@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
 
   attr_accessible :id, :name, :second_name, :surname, :email, :password, :password_confirmation, :remember_me, :userpic
 
+  ajaxful_rater
+
   mount_uploader :userpic, UserpicUploader
 
   has_and_belongs_to_many :roles
