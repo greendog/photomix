@@ -7,6 +7,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.easing.1.3
+//= require jquery.noisy.min
 //= require twitter/bootstrap
 //= require plupload
 //= require jquery.plupload.queue
@@ -17,3 +18,15 @@
 //= require plupload.gears
 //= require plupload.browserplus
 //= require_tree .
+
+
+$(document).ready(function () {
+    $('body').noisy({
+        'intensity':10,
+        'size':200,
+        'opacity':0.320,
+        'fallback':'',
+        'monochrome':false
+    }).css('background-color', '#fefefe');
+});
+

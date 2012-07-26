@@ -5,6 +5,7 @@ class FileUploader < CarrierWave::Uploader::Base
   @@generate_file_name = ''
   @@original_filename  = ''
 
+
   # Include RMagick or ImageScience support
   #     include CarrierWave::RMagick
   #     include CarrierWave::ImageScience
@@ -71,7 +72,7 @@ class FileUploader < CarrierWave::Uploader::Base
   # Below 767px viewports, the columns become fluid and stack vertically.
 
   version :middle do
-    process :resize_to_fit => [724, 500]
+    process :resize_to_fill => [742, 500]
 
     def store_dir
       ENV['STORAGE_PATH'] + "/thumbs/#{model.album.path}/#{model.id}"
@@ -79,7 +80,7 @@ class FileUploader < CarrierWave::Uploader::Base
   end
 
   version :large do
-    process :resize_to_fit => [940, 500]
+    process :resize_to_fill => [940, 600]
 
     def store_dir
       ENV['STORAGE_PATH'] + "/thumbs/#{model.album.path}/#{model.id}"
@@ -87,7 +88,7 @@ class FileUploader < CarrierWave::Uploader::Base
   end
 
   version :largest do
-    process :resize_to_fit => [1170, 500]
+    process :resize_to_fill => [1170, 600]
 
     def store_dir
       ENV['STORAGE_PATH'] + "/thumbs/#{model.album.path}/#{model.id}"

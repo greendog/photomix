@@ -1,14 +1,14 @@
 <%= content_for :head do %>
-    <%= stylesheet_link_tag "anythingslider/anythingslider" %>
+    <%= stylesheet_link_tag "anythingslider/anythingslider", "anythingslider/theme-metallic", "anythingslider/animate" %>
     <%= javascript_include_tag "anythingslider/jquery.anythingslider.min" %>
 
     <script>
         $(function () {
             $('#home-slider').anythingSlider({
-//                theme:'metallic',
-                expand:true,
+                theme:'metallic',
+               // expand:true,
                 //resizeContents: false,
-                autoPlay:true
+                autoPlay:false
             });
 
 
@@ -17,12 +17,11 @@
 
     <style type="text/css">
         #home-slider {
-            height: 1000px;
+            height: 600px;
         }
 
         .slider-wrapper {
             width: 100%;
-            height: 1000px;
             margin: 0 auto;
             margin-bottom: 20px;
         }
@@ -32,7 +31,7 @@
 <div class="span12 slider-wrapper">
   <ul id="home-slider">
     <% @popular_photos.each do |photo| %>
-        <li><%= image_tag photo.attachment.large.url %></li>
+        <li><%= image_tag photo.attachment.largest.url %></li>
     <% end %>
   </ul>
 </div>

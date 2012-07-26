@@ -62,7 +62,7 @@ Photo.blueprint {
   public { true }
   attachment {
     file_name = ::SecureRandom.hex(8)
-    file = open("http://lorempixel.com/1300/1000/people/")
+    file = open("http://lorempixel.com/1170/600/people/")
     if file.kind_of? Tempfile
       name = File.basename(file.path)
       FileUtils.move(file.path, "#{Rails.root}/tmp/attachments/#{name}.jpeg")
