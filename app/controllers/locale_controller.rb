@@ -1,4 +1,6 @@
 class LocaleController < ApplicationController
+  skip_before_filter :authenticate_user!, :only => [:set]
+
   def set
     if request.referer && request.referer.starts_with?('http://' + request.host)
       session['return_to'] = request.referer

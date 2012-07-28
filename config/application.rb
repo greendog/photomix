@@ -10,7 +10,7 @@ module Photomix
   class Application < Rails::Application
     
     # Custom directories with classes and modules you want to be autoloadable.
-    # config.autoload_paths += %W(#{config.root}/
+    # config.autoload_paths += %W(#{config.root}/   Dir["#{config.root}/lib/**/"]
     config.autoload_paths += %W(#{config.root}/lib #{config.root}/app/middleware/)
     config.active_record.observers = :secret_link_observer
     config.encoding = "utf-8"

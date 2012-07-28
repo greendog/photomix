@@ -20,7 +20,7 @@ class AlbumsController < ApplicationController
         end
       }
     else
-      @albums = Album.order('albums.title')
+      @albums = Album.popular.page(@page).per(@per_page)
     end
     respond_to do |format|
       format.html
@@ -40,6 +40,8 @@ class AlbumsController < ApplicationController
   
   def show
     @album = Album.find( params[:id])
+    @photos = @album.photos.popular
+
     respond_to do |format|
       format.html
       format.json  { render :json => @album }
@@ -97,6 +99,12 @@ class AlbumsController < ApplicationController
     else
       redirect_to @album
     end
+  end
+
+  def rate
+    @album = Album.find(params[:id])
+    @album.rate(params[:stars], current_user, params[:dimension])
+    render :json => {:id => @album.wrapper_dom_id(params), :width => 125}
   end
   
 end

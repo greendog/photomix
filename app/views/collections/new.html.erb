@@ -1,7 +1,8 @@
-<h1>New collection</h1>
- 
-<%= form_for @collection do |f| %>
+<%= form_for @collection, :html => {:class => 'form-horizontal'} do |f| %>
+    <legend><%= t('activerecord.actions.new', :model => I18n.t('activerecord.models.collection.one')) %></legend>
   <%= f.error_messages %>
   <%= render :partial => "form", :object => f %>
-  <%= f.submit "Create" %>
+    <div class="form-actions">
+      <%= f.button "Create", :class => 'btn btn-primary btn-large' %>
+    </div>
 <% end %>

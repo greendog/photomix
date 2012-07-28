@@ -9,6 +9,12 @@ class Collection < ActiveRecord::Base
 
   validates :title, :presence => true
 
+  scope :visible, where(:public => true)
+  scope :popular, lambda{visible.includes(:albums => :photos).where("photos.id NOT NULL").order('collections.rating_average desc')}
+
+  def photos_count
+     self.albums.includes(:photos).size
+  end
 
   def to_param
      "#{id}-#{title.parameterize}"

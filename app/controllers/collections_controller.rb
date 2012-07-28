@@ -1,11 +1,13 @@
 class CollectionsController < ApplicationController
   before_filter :check_public_access
   skip_before_filter :authenticate_user!, :only => [:index, :show]
-
+  add_breadcrumb I18n.t('home_page'), :root_path, :title => I18n.t('home_page')
 
   def index
-    @collections = Collection.includes(:albums => :photos).where("photos.id NOT NULL").group_for.order('collections.title')
-    @popular_photos = Photo.visible.order('rating_average asc').limit(10)
+    add_breadcrumb t('activerecord.models.collection.popular'), collections_path, :title => t('activerecord.models.collection.popular')
+    add_breadcrumb t('activerecord.actions.create', :model => I18n.t('activerecord.models.collection.single')), new_collection_path,
+                   :title => t('activerecord.actions.create'), :li_icon => 'icon-plus-sign'
+    @collections = Collection.popular.page(@page).per(@per_page)
 
     respond_to do |format|
       format.html
@@ -16,7 +18,14 @@ class CollectionsController < ApplicationController
   
   def show
     @collection = Collection.find( params[:id] )
-    @albums = @collection.albums.order('title')
+    add_breadcrumb t('activerecord.models.collection.popular'), collections_path, :title => t('activerecord.models.collection.popular')
+    add_breadcrumb @collection.title, collection_path(@collection), :title => @collection.title
+    add_breadcrumb t('activerecord.actions.update', :model => I18n.t('activerecord.models.collection.single')), edit_collection_path,
+                   :title => t('activerecord.actions.update', :model => I18n.t('activerecord.models.collection.single'))
+    add_breadcrumb t('activerecord.actions.destroy', :model => I18n.t('activerecord.models.collection.single')),collection_path(@collection),
+                   :title => t('activerecord.actions.destroy', :model => I18n.t('activerecord.models.collection.single'))
+
+    @albums = @collection.albums.includes(:photos).where("photos.id NOT NULL").order('albums.rating_average desc').page(@page).per(@per_page)
     respond_to do |format|
       format.html
       format.json  { render :json => @collection }
@@ -27,6 +36,8 @@ class CollectionsController < ApplicationController
     
   def new
     @collection = Collection.new
+    add_breadcrumb t('activerecord.models.collection.other').mb_chars.capitalize.to_s, collections_path, :title => t('activerecord.models.collection.other')
+    add_breadcrumb t('activerecord.actions.new', :model => I18n.t('activerecord.models.collection.one')), new_collection_path, :title => t('activerecord.actions.new')
   end
 
   def create
@@ -45,6 +56,8 @@ class CollectionsController < ApplicationController
 
   def update
     @collection = Collection.find( params[:id])
+    add_breadcrumb t('activerecord.models.collection.popular'), collections_path, :title => t('activerecord.models.collection.popular')
+    add_breadcrumb t('activerecord.actions.create', :model => I18n.t('activerecord.models.collection.single')), new_collection_path, :title => t('activerecord.actions.create')
     if @collection.update_attributes(params[:collection])
       flash[:notice] = "Collection updated!"
       redirect_to @collection

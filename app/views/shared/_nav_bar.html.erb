@@ -6,15 +6,14 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </a>
-      <a class="brand" href="#">Photomix</a>
-
+      <a class="brand" href="/">Photomix</a>
       <div class="nav-collapse">
         <ul class="nav">
-          <li class="active"><a href="#">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li <%= "class='active'" if params['controller'].eql?("collections") %>><%= link_to pluralize(t('activerecord.models.collection.one'), 3, ["Коллекция", "Коллекции", "Коллекций"]), collections_path %></li>
+          <li <%= "class='active'" if params['controller'].eql?("albums") %>><%= link_to pluralize(t('activerecord.models.album'), 3, ["Альбом", "Альбомы", "Альбомов"]), albums_path %></li>
+          <li <%= "class='active'" if params['controller'].eql?("photos") %>><%= link_to pluralize(t('activerecord.models.photo'), 3, ["Фотография", "Фотографии", "Фотографий"]), photos_path %></li>
         </ul>
-        <form action="" class="navbar-search pull-left">
+        <form action="" class="navbar-search pull-right">
           <input type="text" placeholder="Search" class="search-query span2">
         </form>
         <%= render :partial => 'shared/user_links' %>

@@ -25,7 +25,7 @@ class PhotosController < ApplicationController
         end
       }
     else
-      @photos = Photo.order("photos.id ASC")
+      @photos = Photo.popular.page(@page).per(@per_page)
     end
     respond_to do |format|
       format.html
@@ -147,5 +147,11 @@ class PhotosController < ApplicationController
     else
       redirect_to @photo
     end
+  end
+
+  def rate
+    @photo = Photo.find(params[:id])
+    @photo.rate(params[:stars], current_user, params[:dimension])
+    render :json => {:id => @photo.wrapper_dom_id(params), :width => 125}
   end
 end

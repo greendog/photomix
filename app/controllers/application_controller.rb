@@ -6,8 +6,9 @@ class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
   protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
+  before_filter :set_locale
   before_filter :authenticate_user!, :set_current_user
-  before_filter :setup
+  before_filter :setup, :set_pagination_params
 
   private
               # This hack is needed to access the current user in models. See http://rails-bestpractices.com/posts/47-fetch-current-user-in-models
@@ -31,4 +32,20 @@ class ApplicationController < ActionController::Base
     redirect_to(session[:return_to] || default)
     session[:return_to] = nil
   end
+
+  private
+
+  def set_pagination_params
+    @page = params[:page]
+    @per_page  = params[:per_page]
+  end
+
+  def set_locale
+    I18n.locale = session[:locale]
+
+    if params[:locale] && I18n.available_locales.include?(params[:locale].to_sym)
+      session[:locale] = I18n.locale = params[:locale].to_sym
+    end
+  end
+
 end

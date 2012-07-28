@@ -1,0 +1,28 @@
+<div class="row">
+  <div class="span12">
+    <% @albums.in_groups_of(4).each do |group| %>
+        <% unless group.empty? %>
+            <ul class="thumbnails">
+              <% group.compact.each_with_index do |album, index| %>
+                  <li class="span3">
+                    <div class="thumbnail">
+                      <%= image_tag album.photos.first.attachment.thumb.url %>
+                      <div class="caption">
+                        <h5 class="title"><%= album.title %></h5>
+                        <em class="descr"><%= album.description %></em>
+                        <div class="controls">
+                          <p class="view-btn"><%= link_to 'View', (album_path(album) unless album.photos.empty?), {:class => 'btn btn-primary'} %></p>
+                          <div class="tooltips">
+                            <span rel="popover" class="icon-th icon-popover" data-content="<%= t(:photos_counter, :count => album.photos.count) %>"></span>
+                          </div>
+                          <%= ratings_for album %>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+              <% end %>
+            </ul>
+        <% end %>
+    <% end %>
+  </div>
+</div>

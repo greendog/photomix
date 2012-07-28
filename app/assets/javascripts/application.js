@@ -8,6 +8,11 @@
 //= require jquery_ujs
 //= require jquery.easing.1.3
 //= require jquery.noisy.min
+//= require jquery.mousewheel
+//= require fancybox/jquery.fancybox.pack
+//= require fancybox/helpers/jquery.fancybox-buttons
+//= require fancybox/helpers/jquery.fancybox-media
+//= require fancybox/helpers/jquery.fancybox-thumbs
 //= require twitter/bootstrap
 //= require plupload
 //= require jquery.plupload.queue
@@ -24,9 +29,31 @@ $(document).ready(function () {
     $('body').noisy({
         'intensity':10,
         'size':200,
-        'opacity':0.320,
+        'opacity':0.120,
         'fallback':'',
         'monochrome':false
     }).css('background-color', '#fefefe');
+
+    $('.icon-popover').popover()
+
+    $(".fancybox-thumb").fancybox({
+        prevEffect	: 'none',
+        nextEffect	: 'none',
+        helpers	: {
+            title	: {
+                type: 'outside'
+            },
+            overlay	: {
+                opacity : 0.8,
+                css : {
+                    'background-color' : '#000'
+                }
+            },
+            thumbs	: {
+                width	: 50,
+                height	: 50
+            }
+        }
+    });
 });
 

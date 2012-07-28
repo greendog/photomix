@@ -5,6 +5,7 @@ gem 'rails', '3.2.6'
 gem 'mime-types', :require => 'mime/types'
 gem 'carrierwave', '0.6.2'
 gem 'dynamic_form'
+gem 'kaminari', :git => 'git://github.com/amatsuda/kaminari.git'
 gem 'princely'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
@@ -12,7 +13,8 @@ gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootst
 gem 'ajaxful_rating_jquery', :git => 'git://github.com/baxang/ajaxful_rating_jquery.git'#, :branch => 'rails3'
 gem 'configatron', :git => 'git://github.com/markbates/configatron.git'
 gem 'plupload-rails', :git => 'git://github.com/bryanmig/plupload-rails.git'
-gem 'sequel', :git => 'git://github.com/jeremyevans/sequel.git'
+#gem 'sequel', :git => 'git://github.com/jeremyevans/sequel.git'
+gem 'breadcrumbs_on_rails', :git => 'git://github.com/lloydk/breadcrumbs_on_rails.git'
 gem 'russian', :git => 'git://github.com/yaroslav/russian.git'
 
 gem "devise_omniauth_engine", :git=>"git://github.com/greendog/devise_omniauth_engine.git"

@@ -10,8 +10,11 @@
 <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
 <![endif]-->
 
+<%= yield :styles %>
 <%= stylesheet_link_tag "application", :media => "all" %>
+
 <%= javascript_include_tag "application" %>
+<%= yield :head %>
 <!-- For third-generation iPad with high-resolution Retina display: -->
 <!-- Size should be 144 x 144 pixels -->
 <%= favicon_link_tag 'images/apple-touch-icon-144x144-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '144x144' %>
@@ -32,7 +35,6 @@
 <!-- Size should be 32 x 32 pixels -->
 <%= favicon_link_tag 'images/favicon.ico', :rel => 'shortcut icon' %>
 
-<%= yield :head %>
 <%= yield :javascript %>
 <%= raw ajaxful_rating_style %>
 <%= raw ajaxful_rating_script %>

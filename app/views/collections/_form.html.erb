@@ -1,38 +1,40 @@
-<%= form.label :title, :Title, {:class => 'big'} %><br />
-<%= form.text_field :title, {:class => 'big'} %><br />
+<fieldset>
+  <div class="control-group">
+    <%= form.label :title, t('activerecord.models.collection.attributes.title'), {:class => 'control-label'} %>
+    <div class="controls">
+      <%= form.text_field :title, {:class => 'input-xlarge'} %>
+    </div>
+  </div>
 
-<%= form.label :description %><br />
-<%= form.text_area :description %><br />
+  <div class="control-group">
+    <%= form.label :description, t('activerecord.models.collection.attributes.description'), {:class => 'control-label'} %>
+    <div class="controls">
+      <%= form.text_area :description, {:class => 'input-xlarge', :rows => 5} %>
+    </div>
+  </div>
 
-<% unless @collection.albums.empty? %>
-<%= form.label :albums %><br />
-<div id="collection_albums">
-<% for album in @collection.albums %>
-<%= form.fields_for :album_list do |album_fields| %>
-<span>
-<%= image_tag "delete-24x24.png", :class => "delete", :alt => "Delete" -%>
+  <% unless @collection.albums.empty? %>
+      <%= form.label :albums %>
+      <% @collection.albums.each do |album| %>
+          <%= form.fields_for :album_list do |album_fields| %>
+              <%= image_tag "delete-24x24.png", :class => "delete", :alt => "Delete" -%>
+              <% if album.photos.empty? %>
+                  <%= album.title %>
+              <% else %>
+                  <%= image_tag album.photos.first.attachment.thumb.url, :alt => album.title %>
+              <% end %>
+              <%= album_fields.hidden_field album.id %>
+          <% end %>
+      <% end %>
 
-<% if album.photos.empty? %>
-	<%= album.title %>
-<% else %>
-<%= image_tag album.photos.first.attachment.album.url, :alt => album.title %>
-<% end %>
-<%= album_fields.hidden_field album.id %>
-</span>
-<% end %>
-<% end %>
-</div>
-
-<p class="clear">
-<%
-grouped_options = [
-	['Available albums',[['Choose album to add','']]],
-	['Not used', Album.unused.map{|album|[album.title, album.id]} ],
-	['In use', Album.used.map{|album|[album.title, album.id]} ]
-]
-grouped_options_for_select(grouped_options)
-%>
-<%= select_tag 'available_albums', grouped_options_for_select(grouped_options) %>
-</p>
-
-<% end %>
+      <%
+         grouped_options = [
+                 ['Available albums', [['Choose album to add', '']]],
+                 ['Not used', Album.unused.map { |album| [album.title, album.id] }],
+                 ['In use', Album.used.map { |album| [album.title, album.id] }]
+         ]
+         grouped_options_for_select(grouped_options)
+      %>
+      <%= select_tag 'available_albums', grouped_options_for_select(grouped_options) %>
+  <% end %>
+</fieldset>

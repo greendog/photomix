@@ -78,6 +78,6 @@ Photomix::Application.routes.draw do
 
   match '/locale' => "locale#set"
 
-  root :to => "collections#index"
+  root :to => "home#index"
 
 end

@@ -49,7 +49,7 @@ class FileUploader < CarrierWave::Uploader::Base
   #     end
 
   # Create different versions of your uploaded files
-  version :collection do
+  version :thumb do
     process :resize_to_fill => [260, 180]
 
     def store_dir
@@ -57,13 +57,6 @@ class FileUploader < CarrierWave::Uploader::Base
     end
   end
 
-  version :album do
-    process :resize_to_fill => [100, 100]
-
-    def store_dir
-      ENV['STORAGE_PATH'] + "/thumbs/#{model.album.path}/#{model.id}"
-    end
-  end
 
   ######################################################################################################################
   # Note

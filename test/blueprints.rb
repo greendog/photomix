@@ -50,14 +50,14 @@ Collection.blueprint {
 }
 
 CollectionAlbum.blueprint {
-  album { Album.find(rand(1..20)) }
-  collection { Collection.find(rand(1..20)) }
+  album { Album.find(rand(1..60)) }
+  collection { Collection.find(rand(1..60)) }
 }
 
 Photo.blueprint {
   title { Faker::Lorem.sentence(rand(3)) }
   description { Faker::Lorem.sentence }
-  album { Album.find(rand(1..20)) }
+  album { Album.find(rand(1..60)) }
   rating_average { rand(1..5) }
   public { true }
   attachment {
@@ -75,19 +75,19 @@ Photo.blueprint {
 }
 
 Rate.blueprint(:collections) {
-  rateable { Collection.find(rand(1..20)) }
+  rateable { Collection.find(rand(1..60)) }
   rater { User.find(rand(1..20)) }
   stars { rand(1..5) }
 }
 
 Rate.blueprint(:albums) {
-  rateable { Album.find(rand(1..20)) }
+  rateable { Album.find(rand(1..60)) }
   rater { User.find(rand(1..20)) }
   stars { rand(1..5) }
 }
 
 Rate.blueprint(:photos) {
-  rateable { Photo.find(rand(1..20)) }
+  rateable { Photo.find(rand(1..60)) }
   rater { User.find(rand(1..20)) }
   stars { rand(1..5) }
 }

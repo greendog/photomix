@@ -1,0 +1,40 @@
+ru:
+  home_page: "Главная"
+  views:
+      pagination:
+        first: "&laquo; первая"
+        last: "последняя &raquo;"
+        previous: "<<"
+        next: ">>"
+        truncate: "..."
+
+  activerecord:
+    models:
+      user: Пользователь
+      collection:
+        one: "коллекция"
+        few: "коллекции"
+        many: "коллекций"
+        other: "коллекции"
+        single: "коллекцию"
+        popular: Полулярные коллекции
+      album: Альбом
+      photo: Фотография
+      photo_tag: Тег
+    actions:
+      new: "Новая %{model}"
+      create: "Создать %{model}"
+      update: "Обновить %{model}"
+      destroy: "Удалить %{model}"
+
+  albums_counter:
+    one: "Содержит %{count} альбом"
+    few: "Содержит %{count} альбома"
+    many: "Содержит %{count} альбомов"
+    other: "Содержит %{count} альбомы"
+
+  photos_counter:
+    one: "Содержит %{count} фото"
+    few: "Содержит %{count} фото"
+    many: "Содержит %{count} фото"
+    other: "Содержит %{count} фото"

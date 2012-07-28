@@ -12,15 +12,16 @@ user = User.make! email: 'test@example.com', password: 'password', password_conf
                   confirmation_sent_at: (Time.now+3)
 
 user.roles << Role.make!(name: 'admin')
+user.save!
 
 20.times.map { User.make! }
-20.times.map { Collection.make! }
-20.times.map { Album.make! }
-20.times.map { Photo.make! }
-10.times.map { CollectionAlbum.make! }
+60.times.map { Collection.make! }
+60.times.map { Album.make! }
+60.times.map { Photo.make! }
+30.times.map { CollectionAlbum.make! }
 
-20.times.map{ Rate.make!(:collections) }
-20.times.map{ Rate.make!(:albums) }
-20.times.map{ Rate.make!(:photos) }
+30.times.map{ Rate.make!(:collections) }
+30.times.map{ Rate.make!(:albums) }
+30.times.map{ Rate.make!(:photos) }
 
 FileUtils.rm_rf "#{Rails.root}/tmp/attachments"

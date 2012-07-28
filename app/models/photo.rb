@@ -16,6 +16,7 @@ class Photo < ActiveRecord::Base
   attr_accessor :tag_list
 
   scope :visible, where(:public => true)
+  scope :popular, visible.order('rating_average desc')
   scope :untouched, :conditions => "photos.description IS NULL AND photos.id NOT IN ( SELECT photo_id FROM photo_tags)", :include => :album 
   scope :previous, lambda { |p,a| { :conditions => ["id < :id AND album_Id = :album ", { :id => p, :album => a } ], :limit => 1, :order => "id DESC"} }
   scope :next, lambda { |p,a| { :conditions => ["id > :id AND album_Id = :album ", { :id => p, :album => a } ], :limit => 1, :order => "id ASC"} }
@@ -59,8 +60,7 @@ class Photo < ActiveRecord::Base
   private
 
   def set_title
-    a=self.attachment.file.basename
-    update_attribute(:title, a.titleize)
+    update_attribute(:title, self.attachment.file.basename.titleize)
     self.title = self.attachment.file.basename.titleize unless self.title
   end
 

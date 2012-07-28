@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="span12">
+    <% @photos.in_groups_of(4).each do |group| %>
+        <% unless group.empty? %>
+            <ul class="thumbnails">
+              <% group.compact.each_with_index do |photo, index| %>
+                  <li class="span3">
+                    <div class="thumbnail">
+                      <%= link_to image_tag(photo.attachment.thumb.url), photo.attachment.largest.url, :class => 'fancybox-thumb', :rel => "fancybox-thumb" %>
+                      <div class="caption">
+                        <h5 class="title"><%= photo.title %></h5>
+                        <em class="descr"><%= photo.description %></em>
+                        <%= ratings_for photo %>
+                      </div>
+                    </div>
+                  </li>
+              <% end %>
+            </ul>
+        <% end %>
+    <% end %>
+  </div>
+</div>

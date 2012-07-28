@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/amatsuda/kaminari.git
+  revision: 82a38e07db1ca1598c8daf073a8f6be22ae714d6
+  specs:
+    kaminari (0.13.0)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
+
+GIT
   remote: git://github.com/baxang/ajaxful_rating_jquery.git
   revision: b4a2c760cdbad9cd865fb18667d14045018287ed
   specs:
@@ -21,10 +29,10 @@ GIT
       yettings
 
 GIT
-  remote: git://github.com/jeremyevans/sequel.git
-  revision: 4b3396b47fdec748a4ed8fae8f6745d2fb5f1f71
+  remote: git://github.com/lloydk/breadcrumbs_on_rails.git
+  revision: 310c40186b97dc816e22e9be7aac3b43dcef040b
   specs:
-    sequel (3.37.0)
+    breadcrumbs_on_rails (2.2.0)
 
 GIT
   remote: git://github.com/mamantoha/omniauth-vkontakte.git
@@ -258,6 +266,7 @@ PLATFORMS
 
 DEPENDENCIES
   ajaxful_rating_jquery!
+  breadcrumbs_on_rails!
   cancan
   carrierwave (= 0.6.2)
   coffee-rails
@@ -268,6 +277,7 @@ DEPENDENCIES
   fog
   jquery-rails
   jquery-ui-rails
+  kaminari!
   machinist
   mime-types
   mini_exiftool
@@ -282,7 +292,6 @@ DEPENDENCIES
   rails (= 3.2.6)
   russian!
   sass-rails
-  sequel!
   sqlite3
   twitter-bootstrap-rails!
   uglifier

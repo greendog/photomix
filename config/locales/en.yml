@@ -1,5 +1,28 @@
-# Sample localization file for English. Add more files in this directory for other locales.
-# See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
 en:
-  hello: "Hello world"
+  home_page: home
+  activerecord:
+    models:
+      user: user
+      collection:
+        one: "collection"
+        many: "collections"
+        other: "collections"
+        single: "collection"
+        popular: Popular Collections
+      album: Album
+      photo: Photo
+      photo_tag: Tag
+    actions:
+      create: "Create %{model}"
+      update: "Update %{model}"
+      destroy: "Destroy %{model}"
+
+  albums_counter:
+    one: "%{count} album"
+    many: "%{count} albums"
+    other: "%{count} album"
+
+  photos_counter:
+    one: "%{count} photo"
+    many: "%{count} photos"
+    other: "%{count} photos"

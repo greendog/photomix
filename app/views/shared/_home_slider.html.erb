@@ -1,11 +1,26 @@
+<%= content_for :styles do %>
+    <%= stylesheet_link_tag "anythingslider/anythingslider" %>
+
+    <style type="text/css">
+        #home-slider {
+            height: 600px;
+        }
+
+        .slider-wrapper {
+            margin: 0 auto;
+            margin-bottom: 20px;
+        }
+    </style>
+<% end %>
 <%= content_for :head do %>
-    <%= stylesheet_link_tag "anythingslider/anythingslider", "anythingslider/theme-metallic", "anythingslider/animate" %>
+    <%#= stylesheet_link_tag "anythingslider/anythingslider", "anythingslider/theme-metallic", "anythingslider/animate" %>
+
     <%= javascript_include_tag "anythingslider/jquery.anythingslider.min" %>
 
     <script>
         $(function () {
             $('#home-slider').anythingSlider({
-                theme:'metallic',
+              //  theme:'metallic',
                // expand:true,
                 //resizeContents: false,
                 autoPlay:false
@@ -14,18 +29,6 @@
 
         });
     </script>
-
-    <style type="text/css">
-        #home-slider {
-            height: 600px;
-        }
-
-        .slider-wrapper {
-            width: 100%;
-            margin: 0 auto;
-            margin-bottom: 20px;
-        }
-    </style>
 <% end %>
 
 <div class="span12 slider-wrapper">
