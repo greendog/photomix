@@ -35,6 +35,11 @@ group :development do
   gem 'sqlite3'
   gem 'ffaker'
   gem 'machinist'
+  gem 'action_mailer_tls', :git => 'git://github.com/openrain/action_mailer_tls.git'
+  gem 'capistrano', :git => 'git://github.com/capistrano/capistrano.git'
+  gem 'capistrano-unicorn', :git => 'git://github.com/sosedoff/capistrano-unicorn.git'
+  gem 'rvm-capistrano'
+  gem 'capistrano_colors'
 end
 
 # -- Cloud storage
