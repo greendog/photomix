@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
   skip_before_filter :authenticate_user!, :only => [:index]
 
-  add_breadcrumb t('home_page'), :root_path
+  add_breadcrumb I18n.t(:home_page), :root_path
 
   def index
     @collections = Collection.popular.limit(12)
