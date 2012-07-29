@@ -59,7 +59,8 @@ Photomix::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
-  set default_url_options[:host] = 'example.com'
+
+  config.default_url_options[:host] = 'example.com'
 
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
