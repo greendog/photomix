@@ -19,6 +19,7 @@ module Photomix
     config.active_support.escape_html_entities_in_json = true
     config.assets.enabled = true
     config.assets.version = '1.0'
+    config.assets.precompile += %w( ajaxful_rating.css )
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password, :password_confirmation]
