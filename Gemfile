@@ -1,12 +1,13 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.2.6'
-
+gem 'sqlite3'
 gem 'mime-types', :require => 'mime/types'
 gem 'carrierwave', '0.6.2'
 gem 'dynamic_form'
 gem 'kaminari', :git => 'git://github.com/amatsuda/kaminari.git'
 gem 'princely'
+gem 'unicorn'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
@@ -32,7 +33,6 @@ group :assets do
 end
 
 group :development do
-  gem 'sqlite3'
   gem 'ffaker'
   gem 'machinist'
   gem 'action_mailer_tls', :git => 'git://github.com/openrain/action_mailer_tls.git'
