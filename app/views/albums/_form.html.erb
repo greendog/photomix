@@ -5,26 +5,59 @@
 
 <div id="map_canvas"></div>
 
-<%= hidden_field_tag :all_tags, "'#{Tag.find(:all).map { |tag| tag.title }.join('\',\'')}'" %>
-<%= hidden_field_tag :collection_id, params[:collection_id] %>
-<%= form.hidden_field :id %>
-<%= form.hidden_field :latitude %>
-<%= form.hidden_field :longitude %>
+<fieldset>
+  <%= hidden_field_tag :all_tags, "'#{Tag.all.map { |tag| tag.title }.join('\',\'')}'" %>
+  <%= hidden_field_tag :collection_id, params[:collection_id] %>
+  <%= form.hidden_field :id %>
+  <%= form.hidden_field :latitude %>
+  <%= form.hidden_field :longitude %>
 
-<%= form.label :title, :Title, {:class => 'big'} %><br />
-<%= form.text_field :title, {:class => 'big'} %><br />
+  <div class="control-group">
+    <%= form.label :title, t('activerecord.models.album.attributes.title'), {:class => 'control-label'} %>
+    <div class="controls">
+      <%= form.text_field :title, {:class => 'input-xlarge'} %>
+    </div>
+  </div>
 
-<%= form.label :description %><br />
-<%= form.text_area :description %><br />
+  <div class="control-group">
+    <%= form.label :description, t('activerecord.models.album.attributes.description'), {:class => 'control-label'} %>
+    <div class="controls">
+      <%= form.text_area :description, {:class => 'input-xlarge', :rows => 5} %>
+    </div>
+  </div>
 
-<%= form.label :address %><br />
-<%= form.text_area :address, { :rows => 3} %><br />
+  <div class="control-group">
+    <%= form.label :public, t('activerecord.models.album.attributes.visible'), {:class => 'control-label'} %>
+    <div class="controls">
+      <label class="checkbox">
+        <%= check_box 'collection', :public %> <%= t(:make_visible_for_all) %>
+      </label>
+    </div>
+  </div>
 
-<%= form.label :note %><br />
-<%= form.text_area :note %><br />
+  <div class="control-group">
+    <%= form.label :address, t('activerecord.models.album.attributes.address'), {:class => 'control-label'} %>
+    <div class="controls">
+      <%= form.text_area :address, {:class => 'input-xlarge', :rows => 5} %>
+    </div>
+  </div>
 
-<%= form.label :tags %><br />
-<%= form.text_field :tags, { :autocomplete => "off", :class => 'tag_list', :value => (@album.tags.map{|tag|tag.title}.join(" ") unless @album.tags.nil?) } %><br />
+  <div class="control-group">
+    <%= form.label :note, t('activerecord.models.album.attributes.note'), {:class => 'control-label'} %>
+    <div class="controls">
+      <%= form.text_area :note, {:class => 'input-xlarge', :rows => 5} %>
+    </div>
+  </div>
 
-<br />
-Contains: <%= @album.photos.count %> photos<br/>
+
+  <div class="control-group">
+    <%= form.label :tags, t('activerecord.models.album.attributes.tags'), {:class => 'control-label'} %>
+    <div class="controls">
+      <%= form.text_field :tags,  {:class => 'input-xlarge', :autocomplete => "off", :class => 'tag_list', :value => (@album.tags.map{|tag|tag.title}.join(" ") unless @album.tags.nil?) } %>
+    </div>
+  </div>
+
+
+  <br />
+  Contains: <%= @album.photos.count %> photos<br/>
+</fieldset>

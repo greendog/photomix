@@ -1,8 +1,9 @@
-<h1>New Album</h1>
- 
-<%= form_for @album do |f| %>
-  <%= f.error_messages %>
-  <%= render :partial => "form", :object => f %>
-  <%= f.submit "Create" %>
+<%= form_for @album, :html => {:class => 'form-horizontal'} do |f| %>
+    <legend><%= t('activerecord.actions.new', :model => I18n.t('activerecord.models.album.one')) %></legend>
+    <%= f.error_messages %>
+    <%= render :partial => "form", :object => f %>
+    <div class="form-actions">
+      <%= f.button "Create", :class => 'btn btn-primary btn-large' %>
+    </div>
 <% end %>
  

@@ -1,5 +1,6 @@
 ru:
   home_page: "Главная"
+  make_visible_for_all: "Сделать видимым для всех"
   views:
       pagination:
         first: "&laquo; первая"
@@ -9,6 +10,11 @@ ru:
         truncate: "..."
 
   activerecord:
+    actions:
+      new:  "Новый(ая) %{model}"
+      create: "Создать %{model}"
+      update: "Обновить %{model}"
+      destroy: "Удалить %{model}"
     models:
       user: Пользователь
       collection:
@@ -17,15 +23,28 @@ ru:
         many: "коллекций"
         other: "коллекции"
         single: "коллекцию"
-        popular: Полулярные коллекции
-      album: Альбом
-      photo: Фотография
-      photo_tag: Тег
-    actions:
-      new: "Новая %{model}"
-      create: "Создать %{model}"
-      update: "Обновить %{model}"
-      destroy: "Удалить %{model}"
+        popular: "Полулярные коллекции"
+        attributes:
+         title: "Заголовок"
+         description: "Описание"
+         visible: "Видимость"
+      album:
+        one: "альбом"
+        few: "альбомов"
+        many: "альбомов"
+        other: "альбомы"
+        single: "альбом"
+        popular: "Полулярные альбомы"
+        attributes:
+         title: "Заголовок"
+         description: "Описание"
+         visible: "Видимость"
+         address: "Адрес"
+         note: "Примечание"
+         tags: "Теги"
+
+      photo: "Фотография"
+      photo_tag: "Тег"
 
   albums_counter:
     one: "Содержит %{count} альбом"

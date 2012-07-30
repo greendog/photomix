@@ -36,8 +36,10 @@ class CollectionsController < ApplicationController
     
   def new
     @collection = Collection.new
-    add_breadcrumb t('activerecord.models.collection.other').mb_chars.capitalize.to_s, collections_path, :title => t('activerecord.models.collection.other')
-    add_breadcrumb t('activerecord.actions.new', :model => I18n.t('activerecord.models.collection.one')), new_collection_path, :title => t('activerecord.actions.new')
+    add_breadcrumb t('activerecord.models.collection.other').mb_chars.capitalize.to_s, collections_path,
+                   :title => t('activerecord.models.collection.other')
+    add_breadcrumb t('activerecord.actions.new', :model => I18n.t('activerecord.models.collection.one')), new_collection_path,
+                   :title => t('activerecord.actions.new', :model => I18n.t('activerecord.models.collection.one'))
   end
 
   def create

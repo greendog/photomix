@@ -13,6 +13,15 @@
     </div>
   </div>
 
+  <div class="control-group">
+    <%= form.label :public, t('activerecord.models.collection.attributes.visible'), {:class => 'control-label'} %>
+    <div class="controls">
+      <label class="checkbox">
+        <%= check_box 'collection', :public %> <%= t(:make_visible_for_all) %>
+      </label>
+    </div>
+  </div>
+
   <% unless @collection.albums.empty? %>
       <%= form.label :albums %>
       <% @collection.albums.each do |album| %>

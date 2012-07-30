@@ -37,9 +37,9 @@ class PhotosController < ApplicationController
   def untouched
     if params[:album_id]
       @album = Album.find( params[:album_id])
-      @photos = @album.photos.untouched
+      @photos = @album.photos.untouched.page(@page).per(@per_page)
     else
-      @photos = Photo.untouched()
+      @photos = Photo.untouched().page(@page).per(@per_page)
     end
     respond_to do |format|
       format.html

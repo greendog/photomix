@@ -3,6 +3,11 @@ class AlbumsController < ApplicationController
   skip_before_filter :authenticate_user!, :only => [:index, :show]
   
   def index
+    add_breadcrumb t('activerecord.models.album.popular'), collections_path, :title => t('activerecord.models.album.popular')
+    add_breadcrumb t('activerecord.actions.create', :model => I18n.t('activerecord.models.album.single')), new_album_path,
+                   :title => t('activerecord.actions.create', :model => I18n.t('activerecord.models.album.single')),
+                   :li_icon => 'icon-plus-sign'
+
     if params[:tag_id]
       @albums = Album.where(:conditions => [ "id IN ( SELECT DISTINCT photos.album_id FROM photos WHERE photos.id IN ( SELECT photo_id FROM photo_tags WHERE photo_tags.tag_id = :q) )", { :q => Tag.find( params[:tag_id] ).id } ]).order('title')
     elsif params[:q]
