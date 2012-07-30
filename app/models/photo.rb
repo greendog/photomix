@@ -11,7 +11,7 @@ class Photo < ActiveRecord::Base
 
   before_create :exif_read
   before_update :exif_write
-  after_create :set_title
+  after_create :set_title, :set_visible
 
   attr_accessor :tag_list
 
@@ -59,9 +59,12 @@ class Photo < ActiveRecord::Base
 
   private
 
+  def set_visible
+    update_attribute(:public, true) unless self.public
+  end
+
   def set_title
-    update_attribute(:title, self.attachment.file.basename.titleize)
-    self.title = self.attachment.file.basename.titleize unless self.title
+    update_attribute(:title, self.attachment.file.basename.titleize) unless self.title
   end
 
   def exif_read
