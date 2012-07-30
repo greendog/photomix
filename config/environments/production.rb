@@ -5,7 +5,7 @@ Photomix::Application.configure do
   config.cache_classes = true
 
   # Full error reports are disabled and caching is turned on
-  config.consider_all_requests_local       = false
+  config.consider_all_requests_local = false
   config.action_controller.perform_caching = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
@@ -48,7 +48,11 @@ Photomix::Application.configure do
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
-  config.assets.precompile += %w( ajaxful_rating.css )
+  config.assets.precompile += %w(ajaxful_rating.css tag/tag.js
+                                 anythingslider/anythingslider.css
+                                 anythingslider/jquery.anythingslider.min.js
+                                 anythingslider/anythingslider.css
+                  )
 
   # Enable threaded mode
   # config.threadsafe!
@@ -60,7 +64,7 @@ Photomix::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
-  config.action_mailer.default_url_options = { :host => "example.com" }
+  config.action_mailer.default_url_options = {:host => "example.com"}
 
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)

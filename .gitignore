@@ -13,6 +13,7 @@ config/deploy
 Capfile
 public/thumbs
 public/uploads
+public/assets
 vendor/cache
 .idea
 .sass-cache
